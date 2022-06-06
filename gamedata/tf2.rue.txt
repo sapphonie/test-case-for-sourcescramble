@@ -1,0 +1,33 @@
+"Games"
+{
+    "tf"
+    {
+        "Signatures"
+        {
+            "CEconItemSystem::ReloadWhitelist"
+            {
+                "library"   "server"
+                "linux"     "@_ZN15CEconItemSystem15ReloadWhitelistEv"
+            }
+        }
+        "MemPatches"
+        {
+            // Make mp_tournament_whitelist not require mp_tournament to be 1
+            "CEconItemSystem::ReloadWhitelist::nopnop"
+            {
+                "signature"     "CEconItemSystem::ReloadWhitelist"
+                "linux"
+                {
+                    "offset"    "34h"
+                    // jnz
+                    "verify"    "\x74\x53"
+                    // nop nop
+                    "patch"     "\x90\x90"
+                }
+                // "windows"
+                // {
+                // }
+            }
+        }
+    }
+}
